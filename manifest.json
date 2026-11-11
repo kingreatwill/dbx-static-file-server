@@ -1,0 +1,214 @@
+{
+  "$schema": "https://raw.githubusercontent.com/t8y2/dbx/plugin-sdk-v1/plugins/manifest.schema.json",
+  "manifest_version": 1,
+  "id": "com.kingreatwill.static-file-server",
+  "name": "Static File Server",
+  "version": "0.1.0",
+  "publisher": "kingreatwill",
+  "description": "Serve local static files",
+  "icon": "assets/plugin.svg",
+  "engines": {
+    "dbx": ">=0.5.68",
+    "host_api": "1"
+  },
+  "entrypoints": {
+    "backend": {
+      "executable": "bin/dbx-plugin-static-file-server"
+    },
+    "ui": {
+      "root": "ui",
+      "entry": "ui/index.html"
+    }
+  },
+  "contributions": [
+    {
+      "type": "connection-provider",
+      "id": "com.kingreatwill.static-file-server.connection",
+      "label": "Static File Server",
+      "icon": "assets/plugin.svg",
+      "database_type": "static-file-server",
+      "description": "Serve local static files",
+      "fields": [
+        {
+          "key": "display_name",
+          "label": "Name",
+          "type": "text",
+          "binding": "name",
+          "required": false,
+          "placeholder": "host:port"
+        },
+        {
+          "key": "host",
+          "label": "Host",
+          "type": "text",
+          "default": "127.0.0.1",
+          "binding": "host",
+          "required": true
+        },
+        {
+          "key": "port",
+          "label": "Port",
+          "type": "number",
+          "default": 3456,
+          "binding": "port",
+          "required": true
+        },
+        {
+          "key": "directory",
+          "label": "Directory",
+          "type": "text",
+          "default": "",
+          "binding": "config",
+          "required": true
+        },
+        {
+          "key": "maxAge",
+          "label": "Max age",
+          "type": "number",
+          "default": 31536000000,
+          "binding": "config"
+        },
+        {
+          "key": "cacheControl",
+          "label": "Cache-Control",
+          "type": "boolean",
+          "default": true,
+          "binding": "config"
+        },
+        {
+          "key": "lastModified",
+          "label": "Last-Modified",
+          "type": "boolean",
+          "default": true,
+          "binding": "config"
+        },
+        {
+          "key": "etag",
+          "label": "ETag",
+          "type": "boolean",
+          "default": true,
+          "binding": "config"
+        },
+        {
+          "key": "index",
+          "label": "Index file",
+          "type": "text",
+          "default": "index.html",
+          "binding": "config"
+        },
+        {
+          "key": "redirect",
+          "label": "Redirect",
+          "type": "boolean",
+          "default": true,
+          "binding": "config"
+        },
+        {
+          "key": "dotfiles",
+          "label": "Dotfiles",
+          "type": "select",
+          "default": "allow",
+          "binding": "config",
+          "options": [
+            {
+              "label": "允许",
+              "value": "allow"
+            },
+            {
+              "label": "拒绝",
+              "value": "deny"
+            },
+            {
+              "label": "忽略",
+              "value": "ignore"
+            }
+          ]
+        },
+        {
+          "key": "acceptRanges",
+          "label": "Accept ranges",
+          "type": "boolean",
+          "default": true,
+          "binding": "config"
+        },
+        {
+          "key": "backgroundRun",
+          "label": "后台运行",
+          "type": "boolean",
+          "default": false,
+          "binding": "config"
+        }
+      ],
+      "workbench": "com.kingreatwill.static-file-server.workbench",
+      "capabilities": [
+        "test",
+        "connect",
+        "disconnect"
+      ]
+    },
+    {
+      "type": "workbench",
+      "id": "com.kingreatwill.static-file-server.workbench",
+      "label": "Static File Server Workbench",
+      "description": "Sandboxed UI contributed by Static File Server.",
+      "icon": "assets/plugin.svg"
+    }
+  ],
+  "localizations": {
+    "zh-CN": {
+      "name": "Static File Server",
+      "description": "Serve local static files",
+      "contributions": {
+        "com.kingreatwill.static-file-server.connection": {
+          "label": "静态文件服务器",
+          "description": "配置并控制本地静态文件服务器。",
+          "fields": {
+            "display_name": {
+              "label": "名称"
+            },
+            "host": {
+              "label": "主机"
+            },
+            "port": {
+              "label": "端口"
+            },
+            "directory": {
+              "label": "目录"
+            },
+            "etag": {
+              "label": "ETag"
+            },
+            "index": {
+              "label": "索引文件"
+            },
+            "redirect": {
+              "label": "目录重定向"
+            },
+            "dotfiles": {
+              "label": "点文件"
+            },
+            "maxAge": {
+              "label": "最大缓存时间"
+            },
+            "cacheControl": {
+              "label": "Cache-Control"
+            },
+            "lastModified": {
+              "label": "Last-Modified"
+            },
+            "acceptRanges": {
+              "label": "接受范围请求"
+            },
+            "backgroundRun": {
+              "label": "后台运行"
+            }
+          }
+        },
+        "com.kingreatwill.static-file-server.workbench": {
+          "label": "Static File Server 工作台",
+          "description": "由插件提供的沙箱工作台界面。"
+        }
+      }
+    }
+  }
+}
